@@ -1,0 +1,115 @@
+body {
+    margin: 0;
+    background-color: rgb(248, 222, 189);
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    box-sizing: border-box;
+    height: 100vh;
+    width: 600px;
+    background-color: rgb(100, 153, 199);
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.player-container {
+    display: flex;
+    gap: 20px;
+    background-color: rgb(40, 59, 77);
+    width: 100%;
+    height: 200px;
+    margin-bottom: 20px;
+}
+.play-ground {
+    display: flex;
+    align-items: center;
+}
+
+.array-grid {
+    background-color: rgb(100, 153, 199);
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 20px 30px 20px 20px;
+    border-right: 2px solid antiquewhite;
+}
+.grid-cell {
+    height: 90px;
+    width: 90px;
+    background-color: rgb(248, 222, 189);
+
+}
+.show-result {
+    padding: 20px;
+}
+.show-result > button {
+    border-style: none;
+    outline: none;
+    background-color: rgb(248, 222, 189);
+    padding: 30px;
+    border-radius: 8px;
+}
+.show-result > button:hover {
+    background-color: rgb(222, 209, 193);
+}
+.show-result > button:active {
+    background-color: rgb(183, 171, 157);
+}
+button img {
+    height: 30px;
+    width: 30px;
+}
+.result-ann {
+    height: 80px;
+    width: 140px;
+    font-family: inherit;
+    font-size: 20px;
+    overflow: visible;
+}
+
+.player-1, .player-2  {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+.turn-div{
+    height: 100%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.player-1, .player-2, .turn-div {
+    color: antiquewhite;
+}
+.player-1 { border-right: 2px solid antiquewhite;}
+.player-2 { border-left: 2px solid antiquewhite;}
+
+.player-1 :first-child, .player-2 :first-child, .turn-div :first-child {
+    font-size: 25px;
+    text-align: center;
+    align-self: center;
+    font-weight: 900;
+    border-bottom: 3px solid antiquewhite;
+    padding: 10px;
+}
+.player-2 :nth-child(2), 
+.player-2 :nth-child(3),
+.player-1 :nth-child(2),
+.player-1 :nth-child(3) {
+    margin: 5px;
+    padding-left: 20px;
+}
+.curr-turn {
+    font-weight: 900;
+    font-size: 50px;
+    margin: 0;
+}
