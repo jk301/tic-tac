@@ -72,6 +72,8 @@ const dialog = (() => {
     name_dialog.showModal();
 
     submit_dialog.addEventListener("click", (e) => {
+        if(player_1_name.value === "") player_1_name.value = "player 1";
+        if(player_2_name.value === "") player_2_name.value = "Player 2";
         player_1 = gameKeep(player_1_name.value);
         player_2 = gameKeep(player_2_name.value);
 
@@ -93,19 +95,36 @@ const grid = (() => {
     const array_cells = [...document.querySelectorAll(".array-grid .grid-cell")];
     const grid_obj = [];
     let turn_counter = 0;
+    const win_cond = [
+        [0, 1, 2], // top 
+        [3, 4, 5], // middle
+        [6, 7, 8], // bottom
+        [0, 3, 6], // left 
+        [1, 4, 7], // middle 
+        [2, 5, 8], // right
+        [0, 4, 8], // \
+        [2, 4, 6], // /
+    ];
 
     array_cells.forEach((item, index) => {
         item.addEventListener("click", () => {
+            if (item.textContent) return;
             if (!item.textContent && turn_counter % 2 == 0) {
-                show_turn.textContent = "O"
+                show_turn.textContent = "O";
                 item.textContent = "X";
-                ++turn_counter
+                ++turn_counter;
             } else if (!item.textContent && turn_counter % 2 != 0) {
-                show_turn.textContent = "X"
+                show_turn.textContent = "X";
                 item.textContent = "O";
                 ++turn_counter;
             }
-            
+
+            grid_obj.push({index, item : item.textContent,});
+            console.log(grid_obj)
+
+            // if (grid_obj.length === 9) {
+            //     console.log("Dead game")
+            // }
         })
 
     })
