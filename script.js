@@ -3,12 +3,12 @@
 // Selectors..
 const p1Name = document.getElementById("p1-name");
 const p1Score = document.getElementById("p1-score");
-
 const p2Name = document.getElementById("p2-name");
 const p2Score = document.getElementById("p2-score")
 
-const result_div = document.querySelector(".show-result");
+const show_turn = document.querySelector(".curr-turn")
 
+const result_div = document.querySelector(".show-result");
 const reset_butt = document.createElement("button");
 reset_butt.type = "button";
 const reset_butt_svg = document.createElement("img");
@@ -36,6 +36,7 @@ const gameKeep = (name) => {
         getName,
     }
 }
+
 // score update
 const updateScore = () => {
     p1Score.textContent = player_1.setScore();
@@ -50,6 +51,8 @@ const dialog = (() => {
     const name_dialog = document.createElement("dialog");
     name_dialog.classList.add("start-dialog");
 
+    const text = document.createElement("p");
+    text.textContent = "Tic-Tac"
     const player_1_name = document.createElement("input");
     player_1_name.type = "text";
     player_1_name.placeholder = "Player 1 name.";
@@ -60,6 +63,7 @@ const dialog = (() => {
     submit_dialog.type = "button"
     submit_dialog.textContent = "Start";
 
+    name_dialog.appendChild(text);
     name_dialog.appendChild(player_1_name);
     name_dialog.appendChild(player_2_name);
     name_dialog.appendChild(submit_dialog);
@@ -85,3 +89,26 @@ const dialog = (() => {
     }
 })();
 
+const grid = (() => {
+    const array_cells = [...document.querySelectorAll(".array-grid .grid-cell")];
+    const grid_obj = [];
+    let turn_counter = 0;
+
+    array_cells.forEach((item, index) => {
+        item.addEventListener("click", () => {
+            if (!item.textContent && turn_counter % 2 == 0) {
+                show_turn.textContent = "O"
+                item.textContent = "X";
+                ++turn_counter
+            } else if (!item.textContent && turn_counter % 2 != 0) {
+                show_turn.textContent = "X"
+                item.textContent = "O";
+                ++turn_counter;
+            }
+            
+        })
+
+    })
+
+
+})();
