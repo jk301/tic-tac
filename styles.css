@@ -44,7 +44,13 @@ body {
     height: 90px;
     width: 90px;
     background-color: rgb(248, 222, 189);
-
+    font-weight: 900;
+    font-size: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 10px;
 }
 .show-result {
     padding: 20px;
@@ -65,13 +71,6 @@ body {
 button img {
     height: 30px;
     width: 30px;
-}
-.result-ann {
-    height: 80px;
-    width: 140px;
-    font-family: inherit;
-    font-size: 20px;
-    overflow: visible;
 }
 
 .player-1, .player-2  {
@@ -112,4 +111,26 @@ button img {
     font-weight: 900;
     font-size: 50px;
     margin: 0;
+}
+
+.start-dialog {
+    background-color: rgb(7, 98, 28);
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.start-dialog > input {
+    padding: 12px;
+}
+.start-dialog > button {
+    border-radius: 8px;
+    background-color: aquamarine;
+    padding: 15px 40px 15px 40px;
+}
+.start-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
 }
