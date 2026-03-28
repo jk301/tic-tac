@@ -72,10 +72,8 @@ const dialog = (() => {
     name_dialog.showModal();
 
     submit_dialog.addEventListener("click", (e) => {
-        if(player_1_name.value === "") player_1_name.value = "player 1";
-        if(player_2_name.value === "") player_2_name.value = "Player 2";
-        player_1 = gameKeep(player_1_name.value);
-        player_2 = gameKeep(player_2_name.value);
+        player_1 = gameKeep(player_1_name.value || "Player 1");
+        player_2 = gameKeep(player_2_name.value || "Player 2");
 
         p1Name.textContent = player_1.setName();
         p1Score.textContent = player_1.setScore();
