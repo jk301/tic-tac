@@ -1,6 +1,6 @@
 // The tic-tac-t
 
-// Selectors..
+// Selectors.. all globals 
 const p1Name = document.getElementById("p1-name");
 const p1Score = document.getElementById("p1-score");
 const p2Name = document.getElementById("p2-name");
@@ -40,9 +40,10 @@ const gameKeep = (name) => {
 // score update
 const updateScore = () => {
     p1Score.textContent = player_1.setScore();
-    p2Score.textContent = player_2 .setScore();
+    p2Score.textContent = player_2.setScore();
 }
 
+// Player init.
 let player_1 = '';
 let player_2 = '';
 
@@ -55,10 +56,10 @@ const dialog = (() => {
     text.textContent = "Tic-Tac";
     const player_1_name = document.createElement("input");
     player_1_name.type = "text";
-    player_1_name.placeholder = "Player 1 name.";
+    player_1_name.placeholder = "Player 'X' name.";
     const player_2_name = document.createElement("input");
     player_2_name.type = "text";
-    player_2_name.placeholder = "Player 2 name.";
+    player_2_name.placeholder = "Player 'O' name.";
     const submit_dialog = document.createElement("button");
     submit_dialog.type = "button";
     submit_dialog.textContent = "Start";
@@ -83,10 +84,6 @@ const dialog = (() => {
         name_dialog.style.display = "none";
         name_dialog.close();    
     })
-    return {
-        player_1_name,
-        player_2_name,
-    }
 })();
 
 
@@ -187,6 +184,7 @@ const grid = (() => {
                     console.log(`${player_2.getName()} WON the Round!!`);
                 }
             } else if (grid_obj.length === 9) {
+                show_turn.textContent = "";
                 result_overlay(`Dead game`);
                 console.log("Dead game");
             }
