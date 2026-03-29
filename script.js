@@ -4,15 +4,15 @@
 const p1Name = document.getElementById("p1-name");
 const p1Score = document.getElementById("p1-score");
 const p2Name = document.getElementById("p2-name");
-const p2Score = document.getElementById("p2-score")
+const p2Score = document.getElementById("p2-score");
 
-const show_turn = document.querySelector(".curr-turn")
+const show_turn = document.querySelector(".curr-turn");
 
 const result_div = document.querySelector(".show-result");
 const reset_butt = document.createElement("button");
 reset_butt.type = "button";
 const reset_butt_svg = document.createElement("img");
-reset_butt_svg.src ="./icons/reset-svgrepo-com.svg"
+reset_butt_svg.src ="./icons/reset-svgrepo-com.svg";
 reset_butt.appendChild(reset_butt_svg);
 
 result_div.appendChild(reset_butt);
@@ -52,7 +52,7 @@ const dialog = (() => {
     name_dialog.classList.add("start-dialog");
 
     const text = document.createElement("p");
-    text.textContent = "Tic-Tac"
+    text.textContent = "Tic-Tac";
     const player_1_name = document.createElement("input");
     player_1_name.type = "text";
     player_1_name.placeholder = "Player 1 name.";
@@ -60,7 +60,7 @@ const dialog = (() => {
     player_2_name.type = "text";
     player_2_name.placeholder = "Player 2 name.";
     const submit_dialog = document.createElement("button");
-    submit_dialog.type = "button"
+    submit_dialog.type = "button";
     submit_dialog.textContent = "Start";
 
     name_dialog.appendChild(text);
@@ -89,9 +89,10 @@ const dialog = (() => {
     }
 })();
 
+
 const grid = (() => {
     const array_cells = [...document.querySelectorAll(".array-grid .grid-cell")];
-    const grid_obj = [];
+    let grid_obj = [];
     let turn_counter = 0;
     const win_cond = [
         [0, 1, 2], // top 
@@ -103,6 +104,54 @@ const grid = (() => {
         [0, 4, 8], // \
         [2, 4, 6], // /
     ];
+
+    // Over the grid Result.
+    const overlay = document.createElement("div");
+    overlay.classList.add("array-overlay");
+
+    const result_overlay = (wintext) => {
+        const array_grid = document.querySelector(".array-grid");
+        const winner_ann = document.createElement("p");
+        const reset_text = document.createElement("p");
+
+        winner_ann.textContent = wintext;
+        reset_text.textContent = "for another round press the reset button >>>";
+
+        overlay.appendChild(winner_ann);
+        overlay.appendChild(reset_text);
+        overlay.style.display = "flex";
+        array_grid.appendChild(overlay);
+    }
+
+    // The reset button
+    reset_butt.addEventListener("click", () => {
+        grid_obj = [];
+        if (turn_counter % 2 !== 0) {
+            show_turn.textContent = "X";
+            turn_counter = 0;
+        } else {
+            show_turn.textContent = "O";
+            turn_counter = 1;
+        }
+
+        array_cells.forEach((item) => {
+            item.textContent = "";
+        })
+        overlay.innerHTML = ""
+        overlay.style.display = "none";
+    })
+
+    // "?." Will return undefined instead of Typerror when init.
+    const getItemOfIndex = (index) => grid_obj.find((obj) => obj.index === index)?.item;
+
+    // checking through the win conditions
+    const winCheck = () => {
+        return win_cond.find(([a,b,c]) => {
+            return getItemOfIndex(a) &&
+            getItemOfIndex(a) === getItemOfIndex(b) &&
+            getItemOfIndex(b) === getItemOfIndex(c)
+        })
+    }
 
     array_cells.forEach((item, index) => {
         item.addEventListener("click", () => {
@@ -119,13 +168,31 @@ const grid = (() => {
 
             grid_obj.push({index, item : item.textContent,});
             console.log(grid_obj)
+            
+            const winner = winCheck();
 
-            // if (grid_obj.length === 9) {
-            //     console.log("Dead game")
-            // }
+            if (winner) {
+                const getItem = getItemOfIndex(winner[0]);
+                if (getItem === "X") {
+                    player_1.win();
+                    updateScore();
+                    show_turn.textContent = "";
+                    result_overlay(`${player_1.getName()} WON.`);
+                    console.log(`${player_1.getName()} WON the Round!!`);
+                } else if (getItem === "O") {
+                    player_2.win();
+                    updateScore();
+                    show_turn.textContent = "";
+                    result_overlay(`${player_2.getName()} WON.`);
+                    console.log(`${player_2.getName()} WON the Round!!`);
+                }
+            } else if (grid_obj.length === 9) {
+                result_overlay(`Dead game`);
+                console.log("Dead game");
+            }
+
         })
 
     })
-
 
 })();
