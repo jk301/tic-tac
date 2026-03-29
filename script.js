@@ -15,7 +15,7 @@ const reset_butt_svg = document.createElement("img");
 reset_butt_svg.src ="./icons/reset-svgrepo-com.svg";
 reset_butt.appendChild(reset_butt_svg);
 
-result_div.appendChild(reset_butt);
+result_div.appendChild(reset_butt); 
 
 // This FF here is used for storing score & name (private & separate)
 const gameKeep = (name) => {
@@ -86,7 +86,7 @@ const dialog = (() => {
     })
 })();
 
-
+// All the grid rules and handling will be done in here.
 const grid = (() => {
     const array_cells = [...document.querySelectorAll(".array-grid .grid-cell")];
     let grid_obj = [];
@@ -150,6 +150,7 @@ const grid = (() => {
         })
     }
 
+    // Attaching events to each cells
     array_cells.forEach((item, index) => {
         item.addEventListener("click", () => {
             if (item.textContent) return;
@@ -164,8 +165,6 @@ const grid = (() => {
             }
 
             grid_obj.push({index, item : item.textContent,});
-            console.log(grid_obj)
-            
             const winner = winCheck();
 
             if (winner) {
@@ -175,22 +174,16 @@ const grid = (() => {
                     updateScore();
                     show_turn.textContent = "";
                     result_overlay(`${player_1.getName()} WON.`);
-                    console.log(`${player_1.getName()} WON the Round!!`);
                 } else if (getItem === "O") {
                     player_2.win();
                     updateScore();
                     show_turn.textContent = "";
                     result_overlay(`${player_2.getName()} WON.`);
-                    console.log(`${player_2.getName()} WON the Round!!`);
                 }
             } else if (grid_obj.length === 9) {
                 show_turn.textContent = "";
                 result_overlay(`Dead game`);
-                console.log("Dead game");
             }
-
         })
-
     })
-
 })();
